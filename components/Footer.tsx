@@ -3,7 +3,7 @@ import Link from "next/link";
 
 function Footer() {
   return (
-    <footer className="bg-[#152657] text-white py-8 px-4 mt-auto">
+    <footer className="bg-secondary text-white py-8 px-4 mt-auto">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between gap-8">
         {/* Filters */}
         <div>
@@ -26,13 +26,13 @@ function Footer() {
         <div>
           <h2 className="text-lg font-bold mb-3">Follow Us</h2>
           <div className="flex gap-4 mt-2">
-            <Link href="#" className="bg-[#0d4e9c] hover:bg-[#125bb3] rounded-full p-2 transition">
+            <Link href="#" className="bg-primary hover:bg-[#125bb3] rounded-full p-2 transition">
               <Facebook size={24} />
             </Link>
-            <Link href="#" className="bg-[#0d4e9c] hover:bg-[#125bb3] rounded-full p-2 transition">
+            <Link href="#" className="bg-primary hover:bg-[#125bb3] rounded-full p-2 transition">
               <Twitter size={24} />
             </Link>
-            <Link href="#" className="bg-[#0d4e9c] hover:bg-[#125bb3] rounded-full p-2 transition">
+            <Link href="#" className="bg-primary hover:bg-[#125bb3] rounded-full p-2 transition">
               <Instagram size={24} />
             </Link>
           </div>

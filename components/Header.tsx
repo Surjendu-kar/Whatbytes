@@ -3,7 +3,7 @@ import { ShoppingCart, Search } from "lucide-react"
 
 function Header() {
   return (
-    <div className="flex items-center justify-around bg-[#0d4e9c] p-4">
+    <div className="flex items-center justify-around bg-primary p-4">
       {/* Logo */}
       <div>
         <Link href="/">
@@ -26,13 +26,13 @@ function Header() {
       <div className="flex items-center  gap-2 lg:gap-8">
         {/* Cart Button */}
         <Link href="/cart">
-          <button className="flex items-center lg:gap-2 bg-[#152657] hover:bg-[#10204e] text-white font-semibold lg:px-6 lg:py-2 p-3 lg:rounded-md rounded-full transition">
+          <button className="flex items-center lg:gap-2 bg-secondary hover:bg-dark text-white font-semibold lg:px-6 lg:py-2 p-3 lg:rounded-md rounded-full transition">
             <ShoppingCart size={20} />
             <span className="hidden sm:inline">Cart</span>
           </button>
         </Link>
         {/* Avatar */}
-        <div className="w-9 h-9 rounded-full bg-blue-300 flex items-center justify-center text-blue-900 font-bold text-lg cursor-pointer">
+        <div className="w-9 h-9 rounded-full bg-light flex items-center justify-center text-blue-900 font-bold text-lg cursor-pointer">
           A
         </div>
       </div>
