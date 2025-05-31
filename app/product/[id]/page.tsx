@@ -1,18 +1,19 @@
 "use client";
-import { useState, useEffect } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useState, useEffect, Suspense } from "react";
+import { useParams, useRouter, notFound } from "next/navigation";
 import Image from "next/image";
 import { Star, ArrowLeft, Plus, Minus, Heart, Share2 } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
 import productsData from "@/data.json";
 import useCartStore, { Product } from "@/store/cartStore";
 
-function ProductDetail() {
+function ProductDetailContent() {
   const params = useParams();
   const router = useRouter();
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
   const [showAllReviews, setShowAllReviews] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const { addItem, updateQuantity, items } = useCartStore();
 
@@ -24,7 +25,14 @@ function ProductDetail() {
     const foundProduct = (productsData as Product[]).find(
       (p) => p.id === productId
     );
-    setProduct(foundProduct || null);
+
+    if (!foundProduct) {
+      notFound();
+      return;
+    }
+
+    setProduct(foundProduct);
+    setIsLoading(false);
   }, [params.id]);
 
   const getProductQuantityInCart = () => {
@@ -86,6 +94,17 @@ function ProductDetail() {
     if (!product) return;
     updateQuantity(product.id, newQuantity);
   };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-xl text-gray-500">Loading product...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!product) {
     return (
@@ -382,4 +401,20 @@ function ProductDetail() {
   );
 }
 
-export default ProductDetail;
+// Server Component
+export default function ProductPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center bg-gray-50">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto mb-4"></div>
+            <p className="text-xl text-gray-500">Loading product...</p>
+          </div>
+        </div>
+      }
+    >
+      <ProductDetailContent />
+    </Suspense>
+  );
+}

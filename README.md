@@ -4,7 +4,7 @@ A modern, fully-featured e-commerce application built with Next.js 14, TypeScrip
 
 ## 🌐 Live Demo
 
-**Deployed on Vercel:** [https://your-app-name.vercel.app](https://your-app-name.vercel.app)
+**Deployed on Vercel:** [https://whatbytes-eight.vercel.app](https://whatbytes-eight.vercel.app)
 
 ## 📋 Assignment Requirements Fulfilled
 
@@ -49,21 +49,6 @@ A modern, fully-featured e-commerce application built with Next.js 14, TypeScrip
 - ✅ **Lucide React** - Icon library for all UI icons
 - ✅ **TypeScript** - Full type safety implementation
 
-### **GitHub Repository Structure**
-This project follows the assignment requirements with:
-- ✅ **Logical, feature-based commits** demonstrating development process
-- ✅ **Incremental development** with separate commits for:
-  - Initial Next.js setup and project structure
-  - Header component with logo, search, and cart
-  - Footer component with social media icons
-  - Product listing and grid implementation
-  - Sidebar filters (category, price, brand)
-  - Product detail page with image carousel
-  - Shopping cart functionality and state management
-  - URL-based filtering and search implementation
-  - Responsive design and mobile optimization
-  - Toast notifications and user feedback
-  - Deployment configuration and final touches
 
 ### **Deployment**
 - ✅ **Deployed on Vercel** as required
@@ -177,7 +162,7 @@ This project follows the assignment requirements with:
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone <https://github.com/Surjendu-kar/Whatbytes?tab=readme-ov-file>
    cd ecommerce-app
    ```
 

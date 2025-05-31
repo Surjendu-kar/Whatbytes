@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -13,7 +13,7 @@ import {
 import toast, { Toaster } from "react-hot-toast";
 import useCartStore from "@/store/cartStore";
 
-function CartPage() {
+function CartPageContent() {
   const { items, updateQuantity, removeItem, clearCart, getCartTotal } =
     useCartStore();
   const [isCheckingOut, setIsCheckingOut] = useState(false);
@@ -327,4 +327,11 @@ function CartPage() {
   );
 }
 
-export default CartPage;
+// Server Component
+export default function CartPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <CartPageContent />
+    </Suspense>
+  );
+}

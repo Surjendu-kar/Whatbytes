@@ -1,11 +1,11 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import Link from "next/link";
 import { ShoppingCart, Search } from "lucide-react";
 import useCartStore from "@/store/cartStore";
 
-function Header() {
+function HeaderContent() {
   const { getCartItemsCount, isHydrated } = useCartStore();
   const [cartItemsCount, setCartItemsCount] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
@@ -111,4 +111,11 @@ function Header() {
   );
 }
 
-export default Header;
+// Server Component
+export default function Header() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <HeaderContent />
+    </Suspense>
+  );
+}
