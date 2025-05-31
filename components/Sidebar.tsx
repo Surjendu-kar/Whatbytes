@@ -18,7 +18,7 @@ function Sidebar() {
                 type="radio"
                 name="category"
                 value={category}
-                className="w-4 h-4 text-blue-600 focus:ring-blue-500"
+                className="w-4 h-4 text-blue-600 focus:ring-blue-500 cursor-pointer"
               />
               <span className="text-sm">{category}</span>
             </label>
@@ -33,13 +33,12 @@ function Sidebar() {
           <input
             type="range"
             min="0"
-            max="1000"
-        
+            max="1000"   
             className="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer slider"
           />
           <div className="flex justify-between text-sm text-blue-100">
-            <span>$0</span>
-            <span>$1000</span>
+            <span>0</span>
+            <span>1000</span>
           </div>
 
         </div>
