@@ -3,15 +3,16 @@ import { ShoppingCart, Search } from "lucide-react"
 
 function Header() {
   return (
-    <div className="flex items-center justify-around bg-primary p-4">
-      {/* Logo */}
-      <div>
-        <Link href="/">
-          <h1 className="text-2xl font-bold text-white">Logo</h1>
-        </Link>
-      </div>
+    <div className="bg-primary p-4">
+      <div className="container mx-auto flex items-center justify-between">
+        {/* Logo */}
+        <div>
+          <Link href="/">
+            <h1 className="text-2xl font-bold text-white">Logo</h1>
+          </Link>
+        </div>
 
-      {/* Search Bar */}
+        {/* Search Bar */}
         <div className="relative w-full max-w-md">
           <span className="absolute inset-y-0 left-0 flex items-center lg:pl-3 pl-2 text-gray-400">
             <Search size={20} />
@@ -23,17 +24,18 @@ function Header() {
           />
         </div>
       
-      <div className="flex items-center  gap-2 lg:gap-8">
-        {/* Cart Button */}
-        <Link href="/cart">
-          <button className="flex items-center lg:gap-2 bg-secondary hover:bg-dark text-white font-semibold lg:px-6 lg:py-2 p-3 lg:rounded-md rounded-full transition">
-            <ShoppingCart size={20} />
-            <span className="hidden sm:inline">Cart</span>
-          </button>
-        </Link>
-        {/* Avatar */}
-        <div className="w-9 h-9 rounded-full bg-light flex items-center justify-center text-blue-900 font-bold text-lg cursor-pointer">
-          A
+        <div className="flex items-center  gap-2 lg:gap-8">
+          {/* Cart Button */}
+          <Link href="/cart">
+            <button className="flex items-center lg:gap-2 bg-secondary hover:bg-dark text-white font-semibold lg:px-6 lg:py-2 p-3 lg:rounded-md rounded-full transition">
+              <ShoppingCart size={20} />
+              <span className="hidden sm:inline">Cart</span>
+            </button>
+          </Link>
+          {/* Avatar */}
+          <div className="w-9 h-9 rounded-full bg-light flex items-center justify-center text-blue-900 font-bold text-lg cursor-pointer">
+            A
+          </div>
         </div>
       </div>
     </div>
