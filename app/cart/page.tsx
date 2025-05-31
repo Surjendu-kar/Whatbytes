@@ -10,6 +10,7 @@ import {
   ShoppingBag,
   Star,
 } from "lucide-react";
+import toast, { Toaster } from "react-hot-toast";
 import useCartStore from "@/store/cartStore";
 
 function CartPage() {
@@ -21,10 +22,71 @@ function CartPage() {
     setIsCheckingOut(true);
     // Simulate checkout process
     setTimeout(() => {
-      alert("Order placed successfully!");
+      toast.success("Order placed successfully!", {
+        duration: 3000,
+        position: "top-center",
+        style: {
+          background: "#10b981",
+          color: "#fff",
+        },
+      });
       clearCart();
       setIsCheckingOut(false);
     }, 2000);
+  };
+
+  const handleClearCart = () => {
+    if (items.length > 0) {
+      clearCart();
+      toast.success("Cart cleared successfully!", {
+        duration: 2000,
+        position: "top-center",
+        style: {
+          background: "#f59e0b",
+          color: "#fff",
+        },
+      });
+    }
+  };
+
+  const handleRemoveItem = (itemId: number, itemTitle: string) => {
+    removeItem(itemId);
+    toast.error(`${itemTitle} removed from cart`, {
+      duration: 2000,
+      position: "top-center",
+      style: {
+        background: "#ef4444",
+        color: "#fff",
+      },
+    });
+  };
+
+  const handleQuantityIncrease = (
+    itemId: number,
+    currentQuantity: number,
+    itemTitle: string
+  ) => {
+    updateQuantity(itemId, currentQuantity + 1);
+  };
+
+  // Handle quantity decrease with automatic removal at 0
+  const handleQuantityDecrease = (
+    itemId: number,
+    currentQuantity: number,
+    itemTitle: string
+  ) => {
+    if (currentQuantity === 1) {
+      // Will remove the item
+      toast.error(`${itemTitle} removed from cart`, {
+        duration: 2000,
+        position: "top-center",
+        style: {
+          background: "#ef4444",
+          color: "#fff",
+        },
+      });
+    }
+    updateQuantity(itemId, currentQuantity - 1);
   };
 
   const formatPrice = (price: number) => {
@@ -47,11 +109,6 @@ function CartPage() {
     }
 
     return stars;
-  };
-
-  // Handle quantity decrease with automatic removal at 0
-  const handleQuantityDecrease = (itemId: number, currentQuantity: number) => {
-    updateQuantity(itemId, currentQuantity - 1);
   };
 
   if (items.length === 0) {
@@ -85,7 +142,8 @@ function CartPage() {
   }
 
   return (
-    <div className="px-4 md:px-0">
+    <div className="max-w-7xl mx-auto px-4">
+      <Toaster position="top-center" />
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex-1 items-center">
@@ -96,10 +154,9 @@ function CartPage() {
             <ArrowLeft size={20} className="mr-2" />
             Continue Shopping
           </Link>
-          {/* <h1 className="text-3xl font-bold text-gray-800">Shopping Cart</h1> */}
         </div>
         <button
-          onClick={clearCart}
+          onClick={handleClearCart}
           className="flex items-center text-red-600 hover:text-red-800 transition-colors"
         >
           <Trash2 size={20} className="mr-2" />
@@ -148,10 +205,14 @@ function CartPage() {
                   </p>
 
                   {/* Quantity Controls */}
-                  <div className="border border-gray-300 rounded-lg w-28">
+                  <div className="flex items-center border border-gray-300 rounded-lg w-32">
                     <button
                       onClick={() =>
-                        handleQuantityDecrease(item.id, item.quantity)
+                        handleQuantityDecrease(
+                          item.id,
+                          item.quantity,
+                          item.title
+                        )
                       }
                       className="p-2 hover:bg-gray-100 transition-colors rounded-l-lg"
                       title={
@@ -166,7 +227,13 @@ function CartPage() {
                       {item.quantity}
                     </span>
                     <button
-                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                      onClick={() =>
+                        handleQuantityIncrease(
+                          item.id,
+                          item.quantity,
+                          item.title
+                        )
+                      }
                       className="p-2 hover:bg-gray-100 transition-colors rounded-r-lg"
                     >
                       <Plus size={16} />
@@ -177,7 +244,7 @@ function CartPage() {
                 {/* Remove Button */}
                 <div className="flex flex-col items-end space-y-4">
                   <button
-                    onClick={() => removeItem(item.id)}
+                    onClick={() => handleRemoveItem(item.id, item.title)}
                     className="flex items-center text-red-600 hover:text-red-800 transition-colors text-sm"
                   >
                     <Trash2 size={16} className="mr-1" />

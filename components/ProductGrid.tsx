@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Star } from "lucide-react";
+import toast from "react-hot-toast";
 import productsData from "@/data.json";
 import useCartStore, { Product } from "@/store/cartStore";
 
@@ -48,16 +49,11 @@ function ProductGrid() {
     e.stopPropagation();
     addItem(product);
 
-    // Optional: Show success feedback
-    const button = e.currentTarget;
-    const originalText = button.textContent;
-    button.textContent = "Added!";
-    button.classList.add("bg-green-500");
-
-    setTimeout(() => {
-      button.textContent = originalText;
-      button.classList.remove("bg-green-500");
-    }, 1000);
+    // Show success toast
+    toast.success(`${product.title} added to cart!`, {
+      duration: 2000,
+      position: "top-center",
+    });
   };
 
   return (
