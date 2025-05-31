@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import Link from "next/link";
 import { ShoppingCart, Search } from "lucide-react";
 import useCartStore from "@/store/cartStore";
@@ -7,6 +8,10 @@ import useCartStore from "@/store/cartStore";
 function Header() {
   const { getCartItemsCount, isHydrated } = useCartStore();
   const [cartItemsCount, setCartItemsCount] = useState(0);
+  const [searchTerm, setSearchTerm] = useState("");
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
 
   // Update cart count when store changes
   useEffect(() => {
@@ -26,6 +31,34 @@ function Header() {
     return unsubscribe;
   }, []);
 
+  // Initialize search term from URL
+  useEffect(() => {
+    const search = searchParams.get("search") || "";
+    setSearchTerm(search);
+  }, [searchParams]);
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+
+    // Update URL with search parameter
+    const params = new URLSearchParams(searchParams.toString());
+    if (value) {
+      params.set("search", value);
+    } else {
+      params.delete("search");
+    }
+
+    const queryString = params.toString();
+    const newUrl = queryString ? `/?${queryString}` : "/";
+    router.replace(newUrl, { scroll: false });
+  };
+
+  const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // Search is already handled by onChange, this prevents form submission
+  };
+
   return (
     <div className="bg-primary">
       <div className="container mx-auto py-4 pl-4 flex items-center justify-between">
@@ -36,17 +69,24 @@ function Header() {
           </Link>
         </div>
 
-        {/* Search Bar */}
-        <div className="relative w-full max-w-md">
-          <span className="absolute inset-y-0 left-0 flex items-center lg:pl-3 pl-2 text-gray-400">
-            <Search size={20} />
-          </span>
-          <input
-            type="text"
-            placeholder="Search for products..."
-            className="w-full lg:pl-10 pl-8 pr-4 py-2 rounded border border-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-transparent text-white placeholder:text-blue-100"
-          />
-        </div>
+        {/* Search Bar - Only show on home page */}
+        {pathname === "/" && (
+          <form
+            onSubmit={handleSearchSubmit}
+            className="relative w-full max-w-md"
+          >
+            <span className="absolute inset-y-0 left-0 flex items-center lg:pl-3 pl-2 text-gray-400">
+              <Search size={20} />
+            </span>
+            <input
+              type="text"
+              placeholder="Search for products..."
+              value={searchTerm}
+              onChange={handleSearchChange}
+              className="w-full lg:pl-10 pl-8 pr-4 py-2 rounded border border-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-transparent text-white placeholder:text-blue-100"
+            />
+          </form>
+        )}
 
         <div className="flex items-center gap-2 lg:gap-8">
           {/* Cart Button */}
