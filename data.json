@@ -7,7 +7,44 @@
     "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop",
     "description": "Comfortable running shoes perfect for daily workouts and long-distance running. Features breathable mesh upper and responsive cushioning.",
     "rating": 4.5,
-    "brand": "Nike"
+    "brand": "Nike",
+    "reviews": [
+      {
+        "id": 1,
+        "user": "Sarah Johnson",
+        "rating": 5,
+        "date": "2024-03-15",
+        "comment": "These running shoes are incredibly comfortable! The cushioning is perfect for my daily 5-mile runs. The breathable mesh keeps my feet cool even during intense workouts."
+      },
+      {
+        "id": 2,
+        "user": "Mike Thompson",
+        "rating": 4,
+        "date": "2024-03-10",
+        "comment": "Great shoes for the price. The grip is excellent on both road and trail. Only giving 4 stars because they run slightly small - I'd recommend going half a size up."
+      },
+      {
+        "id": 3,
+        "user": "Emma Davis",
+        "rating": 5,
+        "date": "2024-03-05",
+        "comment": "Best running shoes I've ever owned! The responsive cushioning makes long runs feel effortless. The design is also very stylish."
+      },
+      {
+        "id": 4,
+        "user": "James Wilson",
+        "rating": 4,
+        "date": "2024-02-28",
+        "comment": "Solid performance shoes. The arch support is excellent, and they're holding up well after 2 months of regular use."
+      },
+      {
+        "id": 5,
+        "user": "Lisa Brown",
+        "rating": 5,
+        "date": "2024-02-20",
+        "comment": "These shoes have completely changed my running experience. The lightweight design and perfect fit make them ideal for both training and races."
+      }
+    ]
   },
   {
     "id": 2,
@@ -17,7 +54,44 @@
     "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop",
     "description": "Premium wireless headphones with noise cancellation and 30-hour battery life. Crystal clear audio quality.",
     "rating": 4.8,
-    "brand": "Apple"
+    "brand": "Apple",
+    "reviews": [
+      {
+        "id": 1,
+        "user": "David Chen",
+        "rating": 5,
+        "date": "2024-03-14",
+        "comment": "The noise cancellation is absolutely incredible! I can't hear anything on my commute. Battery life easily lasts through my workday."
+      },
+      {
+        "id": 2,
+        "user": "Rachel Green",
+        "rating": 5,
+        "date": "2024-03-08",
+        "comment": "Sound quality is exceptional. The bass is deep but not overwhelming, and the highs are crystal clear. Worth every penny!"
+      },
+      {
+        "id": 3,
+        "user": "Tom Anderson",
+        "rating": 4,
+        "date": "2024-03-01",
+        "comment": "Great headphones overall. The only minor issue is that they can get a bit warm during long listening sessions."
+      },
+      {
+        "id": 4,
+        "user": "Sophie Martin",
+        "rating": 5,
+        "date": "2024-02-25",
+        "comment": "Perfect for both music and calls. The microphone quality is excellent, and the touch controls are very intuitive."
+      },
+      {
+        "id": 5,
+        "user": "Alex Turner",
+        "rating": 4,
+        "date": "2024-02-18",
+        "comment": "Excellent sound quality and comfort. The only reason for 4 stars is the premium price point, but you get what you pay for."
+      }
+    ]
   },
   {
     "id": 3,
@@ -27,7 +101,44 @@
     "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop",
     "description": "Durable and spacious backpack perfect for travel, work, or outdoor adventures. Multiple compartments and water-resistant.",
     "rating": 4.3,
-    "brand": "Adidas"
+    "brand": "Adidas",
+    "reviews": [
+      {
+        "id": 1,
+        "user": "Chris Lee",
+        "rating": 5,
+        "date": "2024-03-12",
+        "comment": "This backpack has survived multiple hiking trips and still looks new. The water resistance is excellent, and the compartments are perfectly organized."
+      },
+      {
+        "id": 2,
+        "user": "Maria Garcia",
+        "rating": 4,
+        "date": "2024-03-06",
+        "comment": "Great for daily use and travel. The laptop compartment is well-padded, and there's plenty of space for all my essentials."
+      },
+      {
+        "id": 3,
+        "user": "John Smith",
+        "rating": 4,
+        "date": "2024-02-28",
+        "comment": "Durable and comfortable to wear. The straps are well-padded, and the back support is excellent for long days."
+      },
+      {
+        "id": 4,
+        "user": "Anna White",
+        "rating": 5,
+        "date": "2024-02-22",
+        "comment": "Perfect for my daily commute. Fits my laptop, lunch, and gym clothes with room to spare. The quality is outstanding."
+      },
+      {
+        "id": 5,
+        "user": "Peter Brown",
+        "rating": 4,
+        "date": "2024-02-15",
+        "comment": "Well-designed backpack with great features. The only minor issue is that the side pockets could be a bit larger."
+      }
+    ]
   },
   {
     "id": 4,
@@ -37,7 +148,44 @@
     "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop",
     "description": "Advanced smartwatch with health monitoring, GPS, and 7-day battery life. Compatible with iOS and Android.",
     "rating": 4.6,
-    "brand": "Apple"
+    "brand": "Apple",
+    "reviews": [
+      {
+        "id": 1,
+        "user": "Michael Roberts",
+        "rating": 5,
+        "date": "2024-03-13",
+        "comment": "The health monitoring features are incredibly accurate! The heart rate and sleep tracking have helped me improve my fitness routine significantly."
+      },
+      {
+        "id": 2,
+        "user": "Emily Clark",
+        "rating": 5,
+        "date": "2024-03-07",
+        "comment": "Battery life is impressive - easily lasts a week with regular use. The GPS tracking is spot-on for my runs."
+      },
+      {
+        "id": 3,
+        "user": "Daniel Kim",
+        "rating": 4,
+        "date": "2024-03-01",
+        "comment": "Great smartwatch with excellent features. The only minor issue is that the screen could be a bit brighter in direct sunlight."
+      },
+      {
+        "id": 4,
+        "user": "Jessica Taylor",
+        "rating": 5,
+        "date": "2024-02-24",
+        "comment": "Love the fitness tracking and notifications. The watch faces are beautiful and customizable. Worth every penny!"
+      },
+      {
+        "id": 5,
+        "user": "Robert Wilson",
+        "rating": 4,
+        "date": "2024-02-17",
+        "comment": "Solid smartwatch with great features. The health monitoring is accurate, and the battery life is excellent."
+      }
+    ]
   },
   {
     "id": 5,
@@ -47,7 +195,44 @@
     "image": "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&h=400&fit=crop",
     "description": "Stylish sunglasses with UV protection and polarized lenses. Perfect for outdoor activities and fashion.",
     "rating": 4.2,
-    "brand": "Nike"
+    "brand": "Nike",
+    "reviews": [
+      {
+        "id": 1,
+        "user": "Olivia Martinez",
+        "rating": 5,
+        "date": "2024-03-11",
+        "comment": "These sunglasses are both stylish and functional. The polarized lenses make a huge difference in bright sunlight."
+      },
+      {
+        "id": 2,
+        "user": "William Davis",
+        "rating": 4,
+        "date": "2024-03-05",
+        "comment": "Great quality and comfortable to wear. The UV protection is excellent, and they look fantastic."
+      },
+      {
+        "id": 3,
+        "user": "Sophia Anderson",
+        "rating": 4,
+        "date": "2024-02-27",
+        "comment": "Perfect for outdoor sports. They stay in place during activities and provide excellent sun protection."
+      },
+      {
+        "id": 4,
+        "user": "Ethan Brown",
+        "rating": 5,
+        "date": "2024-02-21",
+        "comment": "The polarized lenses are amazing for driving. They reduce glare significantly and look very stylish."
+      },
+      {
+        "id": 5,
+        "user": "Isabella Lee",
+        "rating": 3,
+        "date": "2024-02-14",
+        "comment": "Good sunglasses overall, but they're a bit pricey for what they offer. The quality is good though."
+      }
+    ]
   },
   {
     "id": 6,
@@ -57,7 +242,44 @@
     "image": "https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?w=400&h=400&fit=crop",
     "description": "Professional digital camera with 24MP sensor and 4K video recording capabilities. Perfect for photography enthusiasts.",
     "rating": 4.7,
-    "brand": "Samsung"
+    "brand": "Samsung",
+    "reviews": [
+      {
+        "id": 1,
+        "user": "Andrew Thompson",
+        "rating": 5,
+        "date": "2024-03-10",
+        "comment": "The image quality is outstanding! The 24MP sensor captures incredible detail, and the 4K video is crystal clear."
+      },
+      {
+        "id": 2,
+        "user": "Victoria White",
+        "rating": 5,
+        "date": "2024-03-04",
+        "comment": "Perfect for both photography and videography. The autofocus is lightning fast, and the low-light performance is impressive."
+      },
+      {
+        "id": 3,
+        "user": "Christopher Lee",
+        "rating": 4,
+        "date": "2024-02-26",
+        "comment": "Great camera for the price. The image stabilization works well, and the battery life is decent for a day of shooting."
+      },
+      {
+        "id": 4,
+        "user": "Amanda Garcia",
+        "rating": 5,
+        "date": "2024-02-20",
+        "comment": "The camera's interface is intuitive, and the results are professional-quality. Perfect for both beginners and enthusiasts."
+      },
+      {
+        "id": 5,
+        "user": "Matthew Chen",
+        "rating": 4,
+        "date": "2024-02-13",
+        "comment": "Excellent camera with great features. The only minor issue is that it could use a better grip for long shooting sessions."
+      }
+    ]
   },
   {
     "id": 7,
@@ -67,7 +289,44 @@
     "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop",
     "description": "Comfortable cotton t-shirt available in multiple colors. Perfect for casual wear and everyday comfort.",
     "rating": 4.1,
-    "brand": "Adidas"
+    "brand": "Adidas",
+    "reviews": [
+      {
+        "id": 1,
+        "user": "Jennifer Adams",
+        "rating": 5,
+        "date": "2024-03-09",
+        "comment": "The fabric is incredibly soft and comfortable. Perfect for everyday wear, and it holds its shape well after washing."
+      },
+      {
+        "id": 2,
+        "user": "Kevin Wilson",
+        "rating": 4,
+        "date": "2024-03-03",
+        "comment": "Great quality t-shirt for the price. The fit is perfect, and the material is breathable."
+      },
+      {
+        "id": 3,
+        "user": "Laura Martinez",
+        "rating": 4,
+        "date": "2024-02-25",
+        "comment": "Comfortable and stylish. The colors are vibrant and don't fade after washing. Great value for money."
+      },
+      {
+        "id": 4,
+        "user": "Ryan Brown",
+        "rating": 3,
+        "date": "2024-02-19",
+        "comment": "Good t-shirt overall, but it runs slightly small. I'd recommend going up a size."
+      },
+      {
+        "id": 5,
+        "user": "Nicole Taylor",
+        "rating": 5,
+        "date": "2024-02-12",
+        "comment": "Love the fit and feel of this t-shirt. It's become my go-to casual wear item."
+      }
+    ]
   },
   {
     "id": 8,
@@ -77,7 +336,44 @@
     "image": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&h=400&fit=crop",
     "description": "Latest smartphone with advanced camera system, fast processor, and all-day battery life. 5G enabled.",
     "rating": 4.9,
-    "brand": "Samsung"
+    "brand": "Samsung",
+    "reviews": [
+      {
+        "id": 1,
+        "user": "David Miller",
+        "rating": 5,
+        "date": "2024-03-08",
+        "comment": "The camera system is phenomenal! The night mode and portrait shots are professional quality. Battery easily lasts all day."
+      },
+      {
+        "id": 2,
+        "user": "Sarah Johnson",
+        "rating": 5,
+        "date": "2024-03-02",
+        "comment": "Incredible performance and display quality. The 5G speeds are blazing fast, and the battery life is impressive."
+      },
+      {
+        "id": 3,
+        "user": "Thomas Anderson",
+        "rating": 5,
+        "date": "2024-02-24",
+        "comment": "Best smartphone I've ever owned. The processor handles everything smoothly, and the camera system is outstanding."
+      },
+      {
+        "id": 4,
+        "user": "Elizabeth White",
+        "rating": 4,
+        "date": "2024-02-18",
+        "comment": "Great phone with excellent features. The only minor issue is that it can get warm during heavy gaming sessions."
+      },
+      {
+        "id": 5,
+        "user": "James Wilson",
+        "rating": 5,
+        "date": "2024-02-11",
+        "comment": "The display is stunning, and the camera system is incredible. Worth every penny for the quality you get."
+      }
+    ]
   },
   {
     "id": 9,
@@ -87,6 +383,43 @@
     "image": "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=400&h=400&fit=crop",
     "description": "Programmable coffee maker with built-in grinder and thermal carafe. Brew perfect coffee every morning.",
     "rating": 4.4,
-    "brand": "IKEA"
+    "brand": "IKEA",
+    "reviews": [
+      {
+        "id": 1,
+        "user": "Patricia Lee",
+        "rating": 5,
+        "date": "2024-03-07",
+        "comment": "The built-in grinder makes such a difference in coffee quality! The thermal carafe keeps coffee hot for hours."
+      },
+      {
+        "id": 2,
+        "user": "Richard Brown",
+        "rating": 4,
+        "date": "2024-03-01",
+        "comment": "Great coffee maker with excellent features. The programmable timer is perfect for morning coffee."
+      },
+      {
+        "id": 3,
+        "user": "Margaret Davis",
+        "rating": 5,
+        "date": "2024-02-23",
+        "comment": "The coffee quality is outstanding. The grinder settings are perfect for different types of beans."
+      },
+      {
+        "id": 4,
+        "user": "Joseph Wilson",
+        "rating": 4,
+        "date": "2024-02-17",
+        "comment": "Easy to use and clean. The thermal carafe is a great feature that keeps coffee hot without burning it."
+      },
+      {
+        "id": 5,
+        "user": "Susan Taylor",
+        "rating": 4,
+        "date": "2024-02-10",
+        "comment": "Good coffee maker overall. The only minor issue is that the water reservoir could be larger."
+      }
+    ]
   }
 ]

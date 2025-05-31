@@ -1,56 +1,63 @@
-'use client'
-import Image from 'next/image'
-import Link from 'next/link'
-import { Star } from 'lucide-react'
-import productsData from '@/data.json'
+"use client";
+import Image from "next/image";
+import Link from "next/link";
+import { Star } from "lucide-react";
+import productsData from "@/data.json";
 
 interface Product {
-  id: number
-  title: string
-  price: number
-  category: string
-  image: string
-  description: string
-  rating: number
-  brand: string
+  id: number;
+  title: string;
+  price: number;
+  category: string;
+  image: string;
+  description: string;
+  rating: number;
+  brand: string;
 }
 
 function ProductGrid() {
-  const products: Product[] = productsData as Product[]
+  const products: Product[] = productsData as Product[];
 
   const renderStars = (rating: number) => {
-    const stars = []
-    const fullStars = Math.floor(rating)
-    const hasHalfStar = rating % 1 !== 0
+    const stars = [];
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 !== 0;
 
     for (let i = 0; i < fullStars; i++) {
       stars.push(
         <Star key={i} size={16} className="fill-yellow-400 text-yellow-400" />
-      )
+      );
     }
 
     if (hasHalfStar) {
       stars.push(
-        <Star key="half" size={16} className="fill-yellow-400 text-yellow-400 opacity-50" />
-      )
+        <Star
+          key="half"
+          size={16}
+          className="fill-yellow-400 text-yellow-400 opacity-50"
+        />
+      );
     }
 
-    const emptyStars = 5 - Math.ceil(rating)
+    const emptyStars = 5 - Math.ceil(rating);
     for (let i = 0; i < emptyStars; i++) {
       stars.push(
         <Star key={`empty-${i}`} size={16} className="text-gray-300" />
-      )
+      );
     }
 
-    return stars
-  }
+    return stars;
+  };
 
-  const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>, product: Product) => {
-    e.preventDefault()
-    e.stopPropagation()
+  const handleAddToCart = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    product: Product
+  ) => {
+    e.preventDefault();
+    e.stopPropagation();
     // TODO: Add cart functionality later
-    console.log('Add to cart:', product.title)
-  }
+    console.log("Add to cart:", product.title);
+  };
 
   return (
     <div className="flex-1">
@@ -71,29 +78,25 @@ function ProductGrid() {
                   className="object-cover"
                 />
               </div>
-              
+
               {/* Product Details */}
               <div className="p-4 flex flex-col gap-1">
                 {/* Title */}
                 <h3 className="text-lg font-semibold text-gray-800 truncate">
                   {product.title}
                 </h3>
-                
+
                 {/* Price */}
-                <p className="text-xl font-bold">
-                  ${product.price}
-                </p>
-                
+                <p className="text-xl font-bold">${product.price}</p>
+
                 {/* Rating Stars */}
                 <div className="flex items-center">
-                  <div className="flex mr-2">
-                    {renderStars(product.rating)}
-                  </div>
+                  <div className="flex mr-2">{renderStars(product.rating)}</div>
                   <span className="text-sm text-gray-600">
                     ({product.rating})
                   </span>
                 </div>
-                
+
                 {/* Add to Cart Button */}
                 <button
                   onClick={(e) => handleAddToCart(e, product)}
@@ -107,7 +110,7 @@ function ProductGrid() {
         ))}
       </div>
     </div>
-  )
+  );
 }
 
-export default ProductGrid
+export default ProductGrid;
