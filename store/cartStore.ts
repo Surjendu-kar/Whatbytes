@@ -92,11 +92,11 @@ const useCartStore = create<CartStore>()(
       },
 
       getCartItemsCount: () => {
-        return get().items.reduce((total, item) => total + item.quantity, 0);
+        return get().items.length;
       },
 
       getTotalItems: () => {
-        return get().items.length;
+        return get().items.reduce((total, item) => total + item.quantity, 0);
       },
 
       setHydrated: () => {

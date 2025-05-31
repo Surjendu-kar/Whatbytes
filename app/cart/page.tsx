@@ -169,12 +169,21 @@ function CartPageContent() {
                 </div>
 
                 {/* Product Info */}
-                <div className="flex flex-col justify-between w-full gap-1">
-                  <Link href={`/product/${item.id}`}>
-                    <h3 className="text-lg font-semibold text-gray-800 hover:text-primary transition-colors cursor-pointer truncate">
-                      {item.title}
-                    </h3>
-                  </Link>
+                <div className="flex flex-col w-full gap-1">
+                  <div className="flex justify-between">
+                    <Link href={`/product/${item.id}`}>
+                      <h3 className="text-lg font-semibold text-gray-800 hover:text-primary transition-colors cursor-pointer truncate">
+                        {item.title}
+                      </h3>
+                    </Link>
+                    {/* Remove Button */}
+                    <button
+                      onClick={() => handleRemoveItem(item.id, item.title)}
+                      className="flex items-center text-red-600 hover:text-red-800 transition-colors text-sm"
+                    >
+                      <Trash2 size={16} className="mr-1" />
+                    </button>
+                  </div>
                   <p className="text-sm text-gray-600">{item.brand}</p>
 
                   {/* Rating */}
@@ -189,59 +198,49 @@ function CartPageContent() {
                     {formatPrice(item.price)}
                   </p>
 
-                  {/* Quantity Controls */}
-                  <div className="flex items-center border border-gray-300 rounded-lg w-32">
-                    <button
-                      onClick={() =>
-                        handleQuantityDecrease(
-                          item.id,
-                          item.quantity,
-                          item.title
-                        )
-                      }
-                      className="p-2 hover:bg-gray-100 transition-colors rounded-l-lg"
-                      title={
-                        item.quantity === 1
-                          ? "Remove item"
-                          : "Decrease quantity"
-                      }
-                    >
-                      <Minus size={16} />
-                    </button>
-                    <span className="px-4 py-2 text-lg font-semibold min-w-[60px] text-center">
-                      {item.quantity}
+                  <div className="flex justify-between items-center">
+                    {/* Quantity Controls */}
+                    <div className="flex items-center border border-gray-300 rounded-lg w-32">
+                      <button
+                        onClick={() =>
+                          handleQuantityDecrease(
+                            item.id,
+                            item.quantity,
+                            item.title
+                          )
+                        }
+                        className="p-2 hover:bg-gray-100 transition-colors rounded-l-lg"
+                        title={
+                          item.quantity === 1
+                            ? "Remove item"
+                            : "Decrease quantity"
+                        }
+                      >
+                        <Minus size={16} />
+                      </button>
+                      <span className="px-4 py-2 text-lg font-semibold min-w-[60px] text-center">
+                        {item.quantity}
+                      </span>
+                      <button
+                        onClick={() =>
+                          handleQuantityIncrease(
+                            item.id,
+                            item.quantity,
+                            item.title
+                          )
+                        }
+                        className="p-2 hover:bg-gray-100 transition-colors rounded-r-lg"
+                      >
+                        <Plus size={16} />
+                      </button>
+                    </div>
+
+                    {/* Item Total */}
+                    <span className="text-xl font-bold text-gray-800">
+                      {formatPrice(item.price * item.quantity)}
                     </span>
-                    <button
-                      onClick={() =>
-                        handleQuantityIncrease(
-                          item.id,
-                          item.quantity,
-                          item.title
-                        )
-                      }
-                      className="p-2 hover:bg-gray-100 transition-colors rounded-r-lg"
-                    >
-                      <Plus size={16} />
-                    </button>
                   </div>
                 </div>
-
-                {/* Remove Button */}
-                <div className="flex flex-col items-end space-y-4">
-                  <button
-                    onClick={() => handleRemoveItem(item.id, item.title)}
-                    className="flex items-center text-red-600 hover:text-red-800 transition-colors text-sm"
-                  >
-                    <Trash2 size={16} className="mr-1" />
-                  </button>
-                </div>
-              </div>
-
-              {/* Item Total */}
-              <div className="flex justify-end mt-4 pt-4 border-t border-gray-200">
-                <span className="text-xl font-bold text-gray-800">
-                  {formatPrice(item.price * item.quantity)}
-                </span>
               </div>
             </div>
           ))}
