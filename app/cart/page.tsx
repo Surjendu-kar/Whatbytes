@@ -163,7 +163,7 @@ function CartPageContent() {
                     src={item.images[0]}
                     alt={item.title}
                     fill
-                    className="object-contain p-2"
+                    className="object-contain"
                     sizes="96px"
                   />
                 </div>

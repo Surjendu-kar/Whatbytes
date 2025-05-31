@@ -198,7 +198,6 @@ function ProductDetailContent() {
                   ${product.price}
                 </p>
               </div>
-
               {/* Category */}
               <div>
                 <h3 className="text-md md:text-lg font-semibold text-gray-800 mb-2">
