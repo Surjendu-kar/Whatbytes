@@ -156,14 +156,14 @@ function ProductDetailContent() {
                     className={`relative flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-colors ${
                       selectedImageIndex === index
                         ? "border-primary"
-                        : "border-gray-200"
+                        : "border-white"
                     }`}
                   >
                     <Image
                       src={image}
                       alt={`${product.title} view ${index + 1}`}
                       fill
-                      className="object-contain p-2"
+                      className="object-cover"
                       sizes="80px"
                     />
                   </button>
