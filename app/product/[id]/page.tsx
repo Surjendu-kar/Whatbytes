@@ -4,24 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import { Star, ArrowLeft, Plus, Minus, Heart, Share2 } from "lucide-react";
 import productsData from "@/data.json";
-
-interface Product {
-  id: number;
-  title: string;
-  price: number;
-  category: string;
-  image: string;
-  description: string;
-  rating: number;
-  brand: string;
-  reviews: {
-    id: number;
-    user: string;
-    rating: number;
-    date: string;
-    comment: string;
-  }[];
-}
+import useCartStore, { Product } from "@/store/cartStore";
 
 function ProductDetail() {
   const params = useParams();
@@ -30,6 +13,8 @@ function ProductDetail() {
   const [quantity, setQuantity] = useState<number>(1);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
   const [showAllReviews, setShowAllReviews] = useState<boolean>(false);
+
+  const addItem = useCartStore((state) => state.addItem);
 
   // Mock images for carousel (since we only have one image per product)
   const productImages = ["/shoes.jpg", "/shoes.jpg", "/shoes.jpg"];
@@ -82,8 +67,10 @@ function ProductDetail() {
   };
 
   const handleAddToCart = () => {
-    // TODO: Add cart functionality later
-    console.log(`Added ${quantity} ${product?.title}(s) to cart`);
+    if (product) {
+      addItem(product, quantity);
+      alert(`Added ${quantity} ${product.title}(s) to cart!`);
+    }
   };
 
   if (!product) {
@@ -99,7 +86,7 @@ function ProductDetail() {
 
   // Calculate review counts for each star
   const starCounts = [5, 4, 3, 2, 1].map(
-    (star) => product.reviews.filter((r) => r.rating === star).length
+    (star) => product.reviews?.filter((r) => r.rating === star).length || 0
   );
   const maxStarCount = Math.max(...starCounts, 1);
 
@@ -167,14 +154,13 @@ function ProductDetail() {
                 </span>
               </div>
               <span className=" text-gray-500 text-sm md:text-md">
-                {product.reviews.length} reviews
+                {product.reviews?.length || 0} reviews
               </span>
             </div>
 
             {/* Price */}
             <div>
               <p className="text-3xl md:text-4xl font-bold">${product.price}</p>
-              {/* <p className="text-sm text-gray-500 mt-1">Free shipping on orders over $50</p> */}
             </div>
 
             {/* Category */}
@@ -280,107 +266,104 @@ function ProductDetail() {
         </div>
 
         {/* Reviews Section (Optional) */}
-        <div className="border-t md:py-8 pt-8 space-y-4 px-3 md:px-0">
-          <h2 className="text-xl md:text-2xl font-bold text-gray-800">
-            Customer Reviews
-          </h2>
+        {product.reviews && product.reviews.length > 0 && (
+          <div className="border-t md:py-8 pt-8 space-y-4 px-3 md:px-0">
+            <h2 className="text-xl md:text-2xl font-bold text-gray-800">
+              Customer Reviews
+            </h2>
 
-          {/* Review Summary */}
-          <div className="bg-white rounded-lg p-4 md:p-6">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center">
-                <div className="flex mr-3 ">{renderStars(product.rating)}</div>
-                <span className="text-xl md:text-2xl font-bold text-gray-800">
-                  {product.rating}
-                </span>
-                <span className="text-gray-600 ml-2 text-sm md:text-md">
-                  out of 5
-                </span>
-              </div>
-              {/* <span className="text-gray-500 hidden md:block">
-                Based on {product.reviews.length} reviews
-              </span> */}
-            </div>
-
-            {/* Rating Breakdown */}
-            <div className="space-y-2">
-              {[5, 4, 3, 2, 1].map((stars, idx) => (
-                <div key={stars} className="flex items-center">
-                  <span className="text-xs md:text-sm text-gray-600 w-6 md:w-8">
-                    {stars}★
-                  </span>
-                  <div className="flex-1 bg-gray-200 rounded-full h-1.5 md:h-2 mx-2 md:mx-3">
-                    <div
-                      className="bg-yellow-400 h-1.5 md:h-2 rounded-full"
-                      style={{
-                        width: `${(starCounts[idx] / maxStarCount) * 100}%`,
-                      }}
-                    ></div>
+            {/* Review Summary */}
+            <div className="bg-white rounded-lg p-4 md:p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center">
+                  <div className="flex mr-3 ">
+                    {renderStars(product.rating)}
                   </div>
-                  <span className="text-xs md:text-sm text-gray-600 w-6 md:w-8">
-                    {starCounts[idx]}
+                  <span className="text-xl md:text-2xl font-bold text-gray-800">
+                    {product.rating}
+                  </span>
+                  <span className="text-gray-600 ml-2 text-sm md:text-md">
+                    out of 5
                   </span>
                 </div>
-              ))}
-            </div>
-          </div>
+              </div>
 
-          {product.reviews.length > 0 && (
-            <>
-              {/* Individual Reviews */}
-              <div className="space-y-4">
-                <div
-                  className={`flex flex-col gap-2 md:gap-4 transition-all duration-500 ease-in-out ${
-                    showAllReviews ? "max-h-[2000px]" : "max-h-[400px]"
-                  }`}
-                >
-                  {product.reviews
-                    .slice(0, showAllReviews ? undefined : 2)
-                    .map((review) => (
+              {/* Rating Breakdown */}
+              <div className="space-y-2">
+                {[5, 4, 3, 2, 1].map((stars, idx) => (
+                  <div key={stars} className="flex items-center">
+                    <span className="text-xs md:text-sm text-gray-600 w-6 md:w-8">
+                      {stars}★
+                    </span>
+                    <div className="flex-1 bg-gray-200 rounded-full h-1.5 md:h-2 mx-2 md:mx-3">
                       <div
-                        key={review.id}
-                        className="bg-white rounded-lg p-4 md:p-6 transform transition-all duration-300 hover:scale-[1.01]"
-                      >
-                        <div className="flex items-center justify-between mb-3">
-                          <div className="flex items-center">
-                            <div className="w-8 h-8 md:w-10 md:h-10 bg-primary rounded-full flex items-center justify-center text-white font-bold mr-3">
-                              {review.user.charAt(0)}
-                            </div>
-                            <div>
-                              <p className="font-medium text-gray-800 text-sm md:text-md">
-                                {review.user}
-                              </p>
-                              <div className="flex items-center">
-                                {renderStars(review.rating)}
-                              </div>
+                        className="bg-yellow-400 h-1.5 md:h-2 rounded-full"
+                        style={{
+                          width: `${(starCounts[idx] / maxStarCount) * 100}%`,
+                        }}
+                      ></div>
+                    </div>
+                    <span className="text-xs md:text-sm text-gray-600 w-6 md:w-8">
+                      {starCounts[idx]}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Individual Reviews */}
+            <div className="space-y-4">
+              <div
+                className={`flex flex-col gap-2 md:gap-4 transition-all duration-500 ease-in-out ${
+                  showAllReviews ? "max-h-[2000px]" : "max-h-[400px]"
+                }`}
+              >
+                {product.reviews
+                  .slice(0, showAllReviews ? undefined : 2)
+                  .map((review) => (
+                    <div
+                      key={review.id}
+                      className="bg-white rounded-lg p-4 md:p-6 transform transition-all duration-300 hover:scale-[1.01]"
+                    >
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center">
+                          <div className="w-8 h-8 md:w-10 md:h-10 bg-primary rounded-full flex items-center justify-center text-white font-bold mr-3">
+                            {review.user.charAt(0)}
+                          </div>
+                          <div>
+                            <p className="font-medium text-gray-800 text-sm md:text-md">
+                              {review.user}
+                            </p>
+                            <div className="flex items-center">
+                              {renderStars(review.rating)}
                             </div>
                           </div>
-                          <span className="text-xs md:text-md text-gray-500">
-                            {review.date}
-                          </span>
                         </div>
-                        <p className="text-gray-600 text-sm md:text-md">
-                          {review.comment}
-                        </p>
+                        <span className="text-xs md:text-md text-gray-500">
+                          {review.date}
+                        </span>
                       </div>
-                    ))}
-                </div>
+                      <p className="text-gray-600 text-sm md:text-md">
+                        {review.comment}
+                      </p>
+                    </div>
+                  ))}
               </div>
+            </div>
 
-              {/* Show All Reviews Button */}
-              <div className="text-center mt-6">
-                <button
-                  onClick={() => setShowAllReviews(!showAllReviews)}
-                  className=" text-sm md:text-md bg-primary hover:bg-secondary text-white font-semibold py-2 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95"
-                >
-                  {showAllReviews
-                    ? "Show Less"
-                    : `Show All Reviews (${product.reviews.length})`}
-                </button>
-              </div>
-            </>
-          )}
-        </div>
+            {/* Show All Reviews Button */}
+            <div className="text-center mt-6">
+              <button
+                onClick={() => setShowAllReviews(!showAllReviews)}
+                className=" text-sm md:text-md bg-primary hover:bg-secondary text-white font-semibold py-2 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95"
+              >
+                {showAllReviews
+                  ? "Show Less"
+                  : `Show All Reviews (${product.reviews.length})`}
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

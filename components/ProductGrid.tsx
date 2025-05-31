@@ -3,20 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { Star } from "lucide-react";
 import productsData from "@/data.json";
-
-interface Product {
-  id: number;
-  title: string;
-  price: number;
-  category: string;
-  image: string;
-  description: string;
-  rating: number;
-  brand: string;
-}
+import useCartStore, { Product } from "@/store/cartStore";
 
 function ProductGrid() {
   const products: Product[] = productsData as Product[];
+  const addItem = useCartStore((state) => state.addItem);
 
   const renderStars = (rating: number) => {
     const stars = [];
@@ -55,8 +46,18 @@ function ProductGrid() {
   ) => {
     e.preventDefault();
     e.stopPropagation();
-    // TODO: Add cart functionality later
-    console.log("Add to cart:", product.title);
+    addItem(product);
+
+    // Optional: Show success feedback
+    const button = e.currentTarget;
+    const originalText = button.textContent;
+    button.textContent = "Added!";
+    button.classList.add("bg-green-500");
+
+    setTimeout(() => {
+      button.textContent = originalText;
+      button.classList.remove("bg-green-500");
+    }, 1000);
   };
 
   return (
