@@ -67,10 +67,10 @@ function CartPage() {
 
         <div className="text-center py-16">
           <ShoppingBag size={64} className="mx-auto text-gray-300 mb-4" />
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
             Your cart is empty
           </h1>
-          <p className="text-gray-600 mb-8">
+          <p className="text-sm md:text-base text-gray-600 mb-6 md:mb-8">
             Add some products to get started!
           </p>
           <Link
@@ -85,7 +85,7 @@ function CartPage() {
   }
 
   return (
-    <div >
+    <div className="px-4 md:px-0">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex-1 items-center">
@@ -107,7 +107,7 @@ function CartPage() {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-10">
         {/* Cart Items */}
         <div className="lg:col-span-2 space-y-4">
           {items.map((item) => (
@@ -197,10 +197,8 @@ function CartPage() {
 
         {/* Order Summary */}
         <div className="lg:col-span-1">
-          <div className="bg-white rounded-lg shadow-md p-4 sticky top-6 flex flex-col gap-4">
-            <h2 className="text-xl font-bold text-gray-800">
-              Order Summary
-            </h2>
+          <div className="bg-white rounded-lg shadow-md p-4 md:p-6 sticky top-6 flex flex-col md:gap-4 gap-2">
+            <h2 className="text-xl font-bold text-gray-800">Order Summary</h2>
 
             <div className="space-y-3">
               <div className="flex justify-between text-gray-600">
@@ -232,14 +230,14 @@ function CartPage() {
 
             <div className="flex flex-col gap-2">
               <button
-              onClick={handleCheckout}
-              disabled={isCheckingOut}
-              className="w-full bg-primary hover:bg-secondary disabled:bg-gray-400 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
-            >
-              {isCheckingOut ? "Processing..." : "Proceed to Checkout"}
-            </button>
+                onClick={handleCheckout}
+                disabled={isCheckingOut}
+                className="w-full bg-primary hover:bg-secondary disabled:bg-gray-400 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
+              >
+                {isCheckingOut ? "Processing..." : "Proceed to Checkout"}
+              </button>
 
-            <Link
+              <Link
                 href="/"
                 className="block text-center text-primary hover:text-white hover:bg-secondary transition-colors border border-gray-300 rounded-lg py-3 px-6"
               >
