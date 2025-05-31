@@ -188,7 +188,7 @@ function ProductDetail() {
               <h3 className="text-md md:text-lg font-semibold text-gray-800 mb-3">
                 Quantity
               </h3>
-              <div className="flex items-center space-x-3 md:space-x-4">
+              <div className="flex items-center space-x-3 md:space-x-4 justify-between">
                 <div className="flex items-center border border-gray-300 rounded-lg">
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
@@ -222,7 +222,7 @@ function ProductDetail() {
                 onClick={handleAddToCart}
                 className="w-full bg-primary hover:bg-secondary text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 text-sm md:text-lg"
               >
-                Add to Cart - ${(product.price * quantity).toFixed(2)}
+                Add to Cart
               </button>
 
               {/* Secondary Actions */}
