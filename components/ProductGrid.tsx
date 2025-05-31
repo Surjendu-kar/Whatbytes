@@ -1,14 +1,14 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { Star } from "lucide-react";
+import { Star, Plus, Minus } from "lucide-react";
 import toast from "react-hot-toast";
 import productsData from "@/data.json";
 import useCartStore, { Product } from "@/store/cartStore";
 
 function ProductGrid() {
   const products: Product[] = productsData as Product[];
-  const addItem = useCartStore((state) => state.addItem);
+  const { addItem, updateQuantity, items } = useCartStore();
 
   const renderStars = (rating: number) => {
     const stars = [];
@@ -41,6 +41,11 @@ function ProductGrid() {
     return stars;
   };
 
+  const getProductQuantityInCart = (productId: number) => {
+    const cartItem = items.find((item) => item.id === productId);
+    return cartItem ? cartItem.quantity : 0;
+  };
+
   const handleAddToCart = (
     e: React.MouseEvent<HTMLButtonElement>,
     product: Product
@@ -56,6 +61,17 @@ function ProductGrid() {
     });
   };
 
+  const handleQuantityChange = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    productId: number,
+    newQuantity: number,
+    productTitle: string
+  ) => {
+    e.preventDefault();
+    e.stopPropagation();
+    updateQuantity(productId, newQuantity);
+  };
+
   return (
     <div className="flex-1">
       {/* Header */}
@@ -63,48 +79,93 @@ function ProductGrid() {
 
       {/* Product Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
-        {products.map((product) => (
-          <Link key={product.id} href={`/product/${product.id}`}>
-            <div className="rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer overflow-hidden">
-              {/* Product Image */}
-              <div className="relative h-48 w-full">
-                <Image
-                  src="/shoes.jpg"
-                  alt={product.title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
+        {products.map((product) => {
+          const quantityInCart = getProductQuantityInCart(product.id);
 
-              {/* Product Details */}
-              <div className="p-4 flex flex-col gap-1">
-                {/* Title */}
-                <h3 className="text-lg font-semibold text-gray-800 truncate">
-                  {product.title}
-                </h3>
-
-                {/* Price */}
-                <p className="text-xl font-bold">${product.price}</p>
-
-                {/* Rating Stars */}
-                <div className="flex items-center">
-                  <div className="flex mr-2">{renderStars(product.rating)}</div>
-                  <span className="text-sm text-gray-600">
-                    ({product.rating})
-                  </span>
+          return (
+            <Link key={product.id} href={`/product/${product.id}`}>
+              <div className="rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer overflow-hidden">
+                {/* Product Image */}
+                <div className="relative h-48 w-full">
+                  <Image
+                    src="/shoes.jpg"
+                    alt={product.title}
+                    fill
+                    className="object-cover"
+                  />
                 </div>
 
-                {/* Add to Cart Button */}
-                <button
-                  onClick={(e) => handleAddToCart(e, product)}
-                  className="w-full bg-primary hover:bg-secondary text-white font-semibold py-2 px-4 rounded transition-colors duration-200"
-                >
-                  Add to Cart
-                </button>
+                {/* Product Details */}
+                <div className="p-4 flex flex-col gap-1">
+                  {/* Title */}
+                  <h3 className="text-lg font-semibold text-gray-800 truncate">
+                    {product.title}
+                  </h3>
+
+                  {/* Price */}
+                  <p className="text-xl font-bold">${product.price}</p>
+
+                  {/* Rating Stars */}
+                  <div className="flex items-center">
+                    <div className="flex mr-2">
+                      {renderStars(product.rating)}
+                    </div>
+                    <span className="text-sm text-gray-600">
+                      ({product.rating})
+                    </span>
+                  </div>
+
+                  {/* Add to Cart Button OR Quantity Controls */}
+                  {quantityInCart === 0 ? (
+                    <button
+                      onClick={(e) => handleAddToCart(e, product)}
+                      className="w-full bg-primary hover:bg-secondary text-white font-semibold py-2 px-4 rounded transition-colors duration-200"
+                    >
+                      Add to Cart
+                    </button>
+                  ) : (
+                    <div className="flex items-center justify-center border border-gray-300 rounded bg-gray-50">
+                      <button
+                        onClick={(e) =>
+                          handleQuantityChange(
+                            e,
+                            product.id,
+                            quantityInCart - 1,
+                            product.title
+                          )
+                        }
+                        className="p-2 hover:bg-gray-200 transition-colors rounded-l"
+                        title={
+                          quantityInCart === 1
+                            ? "Remove from cart"
+                            : "Decrease quantity"
+                        }
+                      >
+                        <Minus size={16} />
+                      </button>
+                      <span className="px-4 py-2 text-lg font-semibold min-w-[60px] text-center">
+                        {quantityInCart}
+                      </span>
+                      <button
+                        onClick={(e) =>
+                          handleQuantityChange(
+                            e,
+                            product.id,
+                            quantityInCart + 1,
+                            product.title
+                          )
+                        }
+                        className="p-2 hover:bg-gray-200 transition-colors rounded-r"
+                      >
+                        <Plus size={16} />
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          </Link>
-        ))}
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

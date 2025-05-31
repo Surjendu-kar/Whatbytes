@@ -51,14 +51,6 @@ function CartPage() {
 
   const handleRemoveItem = (itemId: number, itemTitle: string) => {
     removeItem(itemId);
-    toast.error(`${itemTitle} removed from cart`, {
-      duration: 2000,
-      position: "top-center",
-      style: {
-        background: "#ef4444",
-        color: "#fff",
-      },
-    });
   };
 
   const handleQuantityIncrease = (
@@ -69,23 +61,11 @@ function CartPage() {
     updateQuantity(itemId, currentQuantity + 1);
   };
 
-  // Handle quantity decrease with automatic removal at 0
   const handleQuantityDecrease = (
     itemId: number,
     currentQuantity: number,
     itemTitle: string
   ) => {
-    if (currentQuantity === 1) {
-      // Will remove the item
-      toast.error(`${itemTitle} removed from cart`, {
-        duration: 2000,
-        position: "top-center",
-        style: {
-          background: "#ef4444",
-          color: "#fff",
-        },
-      });
-    }
     updateQuantity(itemId, currentQuantity - 1);
   };
 

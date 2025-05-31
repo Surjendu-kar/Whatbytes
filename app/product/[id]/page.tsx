@@ -11,11 +11,10 @@ function ProductDetail() {
   const params = useParams();
   const router = useRouter();
   const [product, setProduct] = useState<Product | null>(null);
-  const [quantity, setQuantity] = useState<number>(1);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
   const [showAllReviews, setShowAllReviews] = useState<boolean>(false);
 
-  const addItem = useCartStore((state) => state.addItem);
+  const { addItem, updateQuantity, items } = useCartStore();
 
   // Mock images for carousel (since we only have one image per product)
   const productImages = ["/shoes.jpg", "/shoes.jpg", "/shoes.jpg"];
@@ -27,6 +26,12 @@ function ProductDetail() {
     );
     setProduct(foundProduct || null);
   }, [params.id]);
+
+  const getProductQuantityInCart = () => {
+    if (!product) return 0;
+    const cartItem = items.find((item) => item.id === product.id);
+    return cartItem ? cartItem.quantity : 0;
+  };
 
   const renderStars = (rating: number) => {
     const stars = [];
@@ -69,15 +74,17 @@ function ProductDetail() {
 
   const handleAddToCart = () => {
     if (product) {
-      addItem(product, quantity);
-      toast.success(
-        `${quantity} ${product.title}${quantity > 1 ? "s" : ""} added to cart!`,
-        {
-          duration: 2000,
-          position: "top-center",
-        }
-      );
+      addItem(product);
+      toast.success(`${product.title} added to cart!`, {
+        duration: 2000,
+        position: "top-center",
+      });
     }
+  };
+
+  const handleQuantityChange = (newQuantity: number) => {
+    if (!product) return;
+    updateQuantity(product.id, newQuantity);
   };
 
   if (!product) {
@@ -96,6 +103,7 @@ function ProductDetail() {
     (star) => product.reviews?.filter((r) => r.rating === star).length || 0
   );
   const maxStarCount = Math.max(...starCounts, 1);
+  const quantityInCart = getProductQuantityInCart();
 
   return (
     <>
@@ -194,47 +202,40 @@ function ProductDetail() {
                 </p>
               </div>
 
-              {/* Quantity Selector */}
-              <div>
-                <h3 className="text-md md:text-lg font-semibold text-gray-800 mb-3">
-                  Quantity
-                </h3>
-                <div className="flex items-center space-x-3 md:space-x-4">
-                  <div className="flex items-center border border-gray-300 rounded-lg">
-                    <button
-                      onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                      className="p-1 md:p-2 hover:bg-gray-100 transition-colors rounded-l-lg"
-                    >
-                      <Minus size={18} />
-                    </button>
-                    <span className="px-2 md:px-4 py-1 md:py-2 text-md md:text-lg font-semibold min-w-[60px] text-center">
-                      {quantity}
-                    </span>
-                    <button
-                      onClick={() => setQuantity(quantity + 1)}
-                      className="p-1 md:p-2 hover:bg-gray-100 transition-colors rounded-r-lg"
-                    >
-                      <Plus size={18} />
-                    </button>
-                  </div>
-                  <span className="text-gray-500">
-                    Total:{" "}
-                    <span className="font-bold text-gray-800">
-                      ${(product.price * quantity).toFixed(2)}
-                    </span>
-                  </span>
-                </div>
-              </div>
-
               {/* Action Buttons */}
               <div className="space-y-3">
-                {/* Add to Cart Button */}
-                <button
-                  onClick={handleAddToCart}
-                  className="w-full bg-primary hover:bg-secondary text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 text-sm md:text-lg"
-                >
-                  Add to Cart - ${(product.price * quantity).toFixed(2)}
-                </button>
+                {/* Add to Cart Button OR Quantity Controls */}
+                {quantityInCart === 0 ? (
+                  <button
+                    onClick={handleAddToCart}
+                    className="w-full bg-primary hover:bg-secondary text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 text-sm md:text-lg"
+                  >
+                    Add to Cart
+                  </button>
+                ) : (
+                  <div className="w-full border border-gray-300 rounded-lg bg-gray-50 flex items-center justify-center">
+                    <button
+                      onClick={() => handleQuantityChange(quantityInCart - 1)}
+                      className="p-3 md:p-4 hover:bg-gray-200 transition-colors rounded-l-lg"
+                      title={
+                        quantityInCart === 1
+                          ? "Remove from cart"
+                          : "Decrease quantity"
+                      }
+                    >
+                      <Minus size={20} />
+                    </button>
+                    <span className="px-6 md:px-8 py-2 md:py-3 text-lg md:text-xl font-semibold min-w-[100px] text-center">
+                      {quantityInCart}
+                    </span>
+                    <button
+                      onClick={() => handleQuantityChange(quantityInCart + 1)}
+                      className="p-3 md:p-4 hover:bg-gray-200 transition-colors rounded-r-lg"
+                    >
+                      <Plus size={20} />
+                    </button>
+                  </div>
+                )}
 
                 {/* Secondary Actions */}
                 <div className="flex space-x-3">
