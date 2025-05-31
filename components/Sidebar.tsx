@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { Menu, X } from "lucide-react";
 
 interface Filters {
   category: string;
@@ -19,6 +20,7 @@ function Sidebar({ filters, setFilters }: SidebarProps) {
   const router = useRouter();
   const [priceRange, setPriceRange] = useState(filters.maxPrice);
   const [priceInput, setPriceInput] = useState("");
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const categories = ["All", "Electronics", "Clothing", "Home"];
   const brands = ["Apple", "Samsung", "Nike", "Adidas", "IKEA"];
@@ -111,8 +113,8 @@ function Sidebar({ filters, setFilters }: SidebarProps) {
     });
   };
 
-  return (
-    <div className="w-64 flex flex-col gap-6">
+  const FiltersContent = () => (
+    <>
       {/* Filters */}
       <div className="flex flex-col bg-primary p-4 text-white rounded-xl gap-4">
         <div className="flex justify-between items-center">
@@ -202,7 +204,59 @@ function Sidebar({ filters, setFilters }: SidebarProps) {
           />
         </div>
       </div>
-    </div>
+    </>
+  );
+
+  return (
+    <>
+      {/* Menu button for small screens */}
+      <button
+        onClick={() => setIsDrawerOpen(true)}
+        className="fixed top-4 left-4 z-40 p-2 rounded-lg bg-primary text-white lg:hidden hover:bg-secondary transition-colors duration-200"
+      >
+        <Menu size={24} />
+      </button>
+
+      {/* Drawer for small screens */}
+      <div
+        className={`fixed inset-0 z-50 lg:hidden transition-opacity duration-300 ${
+          isDrawerOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+      >
+        {/* Backdrop */}
+        <div
+          className="absolute inset-0 bg-black/50"
+          onClick={() => setIsDrawerOpen(false)}
+        />
+
+        {/* Drawer content */}
+        <div
+          className={`absolute top-0 left-0 w-64 h-full bg-white transform transition-transform duration-300 ${
+            isDrawerOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
+        >
+          <div className="p-4 h-full overflow-y-auto">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-bold text-gray-800">Filters</h2>
+              <button
+                onClick={() => setIsDrawerOpen(false)}
+                className="p-2 hover:bg-gray-100 rounded-lg"
+              >
+                <X size={24} />
+              </button>
+            </div>
+            <FiltersContent />
+          </div>
+        </div>
+      </div>
+
+      {/* Regular sidebar for large screens */}
+      <div className="hidden lg:block w-64 flex-shrink-0">
+        <div className="w-64 flex flex-col gap-6">
+          <FiltersContent />
+        </div>
+      </div>
+    </>
   );
 }
 

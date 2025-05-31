@@ -140,7 +140,7 @@ function ProductGrid({ filters, setFilters }: ProductGridProps) {
   };
 
   return (
-    <div className="flex-1">
+    <div className="flex-1 px-4 lg:px-0">
       {/* Header */}
       <div>
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">

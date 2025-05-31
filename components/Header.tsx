@@ -2,10 +2,14 @@
 import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import Link from "next/link";
-import { ShoppingCart, Search } from "lucide-react";
+import { ShoppingCart, Search, Menu } from "lucide-react";
 import useCartStore from "@/store/cartStore";
 
-function HeaderContent() {
+interface HeaderContentProps {
+  onMenuClick?: () => void;
+}
+
+function HeaderContent({ onMenuClick }: HeaderContentProps) {
   const { getCartItemsCount, isHydrated } = useCartStore();
   const [cartItemsCount, setCartItemsCount] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
@@ -60,34 +64,43 @@ function HeaderContent() {
   };
 
   return (
-    <div className="bg-primary">
-      <div className="container mx-auto py-4 pl-4 flex items-center justify-between">
-        {/* Logo */}
-        <div>
+    <div className="bg-primary sticky top-0 z-40">
+      <div className="container mx-auto py-4 px-4 flex items-center justify-between">
+        {/* Left Section */}
+        <div className="flex items-center gap-4">
+          {/* Menu Button - Only on small screens */}
+          <button
+            onClick={onMenuClick}
+            className="md:hidden text-white hover:text-blue-100 transition-colors"
+          >
+            <Menu size={24} />
+          </button>
+
+          {/* Logo */}
           <Link href="/">
             <h1 className="text-2xl font-bold text-white">Logo</h1>
           </Link>
         </div>
 
-        {/* Search Bar - Only show on home page */}
+        {/* Center Section - Search Bar */}
         {pathname === "/" && (
-          <form
-            onSubmit={handleSearchSubmit}
-            className="relative w-full max-w-md"
-          >
-            <span className="absolute inset-y-0 left-0 flex items-center lg:pl-3 pl-2 text-gray-400">
-              <Search size={20} />
-            </span>
-            <input
-              type="text"
-              placeholder="Search for products..."
-              value={searchTerm}
-              onChange={handleSearchChange}
-              className="w-full lg:pl-10 pl-8 pr-4 py-2 rounded border border-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-transparent text-white placeholder:text-blue-100"
-            />
-          </form>
+          <div className="hidden sm:block flex-1 max-w-xl mx-4">
+            <form onSubmit={handleSearchSubmit} className="relative w-full">
+              <span className="absolute inset-y-0 left-0 flex items-center lg:pl-3 pl-2 text-gray-400">
+                <Search size={20} />
+              </span>
+              <input
+                type="text"
+                placeholder="Search for products..."
+                value={searchTerm}
+                onChange={handleSearchChange}
+                className="w-full lg:pl-10 pl-8 pr-4 py-2 rounded border border-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-transparent text-white placeholder:text-blue-100"
+              />
+            </form>
+          </div>
         )}
 
+        {/* Right Section */}
         <div className="flex items-center gap-2 lg:gap-8">
           {/* Cart Button */}
           <Link href="/cart">
@@ -107,15 +120,33 @@ function HeaderContent() {
           </div>
         </div>
       </div>
+
+      {/* Mobile Search - Only show on home page */}
+      {pathname === "/" && (
+        <div className="sm:hidden px-4 pb-4">
+          <form onSubmit={handleSearchSubmit} className="relative w-full">
+            <span className="absolute inset-y-0 left-0 flex items-center pl-2 text-gray-400">
+              <Search size={20} />
+            </span>
+            <input
+              type="text"
+              placeholder="Search for products..."
+              value={searchTerm}
+              onChange={handleSearchChange}
+              className="w-full pl-8 pr-4 py-2 rounded border border-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-transparent text-white placeholder:text-blue-100"
+            />
+          </form>
+        </div>
+      )}
     </div>
   );
 }
 
 // Server Component
-export default function Header() {
+export default function Header({ onMenuClick }: HeaderContentProps) {
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <HeaderContent />
+      <HeaderContent onMenuClick={onMenuClick} />
     </Suspense>
   );
 }
