@@ -17,14 +17,11 @@ function ProductDetailContent() {
 
   const { addItem, updateQuantity, items } = useCartStore();
 
-  // Mock images for carousel (since we only have one image per product)
-  const productImages = ["/shoes.jpg", "/shoes.jpg", "/shoes.jpg"];
-
   useEffect(() => {
     const productId = parseInt(params.id as string);
-    const foundProduct = (productsData as Product[]).find(
-      (p) => p.id === productId
-    );
+    const foundProduct = productsData.find((p) => p.id === productId) as
+      | Product
+      | undefined;
 
     if (!foundProduct) {
       notFound();
@@ -140,23 +137,23 @@ function ProductDetailContent() {
         <div className=" rounded-lg">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 bg-white p-4 md:p-8">
             {/* Image Section (Left) */}
-            <div className="space-y-2 md:space-y-4 ">
-              <div className="relative h-96 w-full bg-gray-100 rounded-lg overflow-hidden">
+            <div className="space-y-2 md:space-y-4">
+              <div className="relative pt-[100%] bg-white rounded-lg overflow-hidden">
                 <Image
-                  src={productImages[selectedImageIndex]}
+                  src={product.images[selectedImageIndex]}
                   alt={product.title}
                   fill
-                  className="object-cover"
+                  className="object-contain"
                 />
               </div>
 
               {/* Image Carousel/Thumbnails */}
-              <div className="flex space-x-2">
-                {productImages.map((image, index) => (
+              <div className="flex gap-2 overflow-x-auto pb-2">
+                {product.images.map((image, index) => (
                   <button
                     key={index}
                     onClick={() => setSelectedImageIndex(index)}
-                    className={`relative h-20 w-20 rounded-lg overflow-hidden border-2 transition-colors ${
+                    className={`relative flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-colors ${
                       selectedImageIndex === index
                         ? "border-primary"
                         : "border-gray-200"
@@ -166,7 +163,8 @@ function ProductDetailContent() {
                       src={image}
                       alt={`${product.title} view ${index + 1}`}
                       fill
-                      className="object-cover"
+                      className="object-contain p-2"
+                      sizes="80px"
                     />
                   </button>
                 ))}

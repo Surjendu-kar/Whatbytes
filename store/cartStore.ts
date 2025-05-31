@@ -6,17 +6,17 @@ export interface Product {
   title: string;
   price: number;
   category: string;
-  image: string;
+  images: string[];
   description: string;
   rating: number;
   brand: string;
-  reviews?: {
+  reviews?: Array<{
     id: number;
     user: string;
     rating: number;
     date: string;
     comment: string;
-  }[];
+  }>;
 }
 
 export interface CartItem extends Product {

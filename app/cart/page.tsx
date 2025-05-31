@@ -11,7 +11,11 @@ import {
   Star,
 } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
-import useCartStore from "@/store/cartStore";
+import useCartStore, { Product } from "@/store/cartStore";
+
+interface CartItem extends Product {
+  quantity: number;
+}
 
 function CartPageContent() {
   const { items, updateQuantity, removeItem, clearCart, getCartTotal } =
@@ -154,12 +158,13 @@ function CartPageContent() {
             >
               <div className="flex items-start space-x-4">
                 {/* Product Image */}
-                <div className="relative w-24 h-24 flex-shrink-0">
+                <div className="relative w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden">
                   <Image
-                    src="/shoes.jpg"
+                    src={item.images[0]}
                     alt={item.title}
                     fill
-                    className="object-cover rounded-lg"
+                    className="object-contain p-2"
+                    sizes="96px"
                   />
                 </div>
 

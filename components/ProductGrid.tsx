@@ -204,12 +204,12 @@ function ProductGrid({ filters, setFilters }: ProductGridProps) {
               <Link key={product.id} href={`/product/${product.id}`}>
                 <div className="rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer overflow-hidden">
                   {/* Product Image */}
-                  <div className="relative h-48 w-full">
+                  <div className="relative pt-[100%] bg-white">
                     <Image
-                      src="/shoes.jpg"
+                      src={product.images[0]}
                       alt={product.title}
                       fill
-                      className="object-cover"
+                      className="object-contain"
                     />
                   </div>
 
