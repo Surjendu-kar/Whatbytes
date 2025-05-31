@@ -7,7 +7,7 @@
     "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop",
     "description": "Comfortable running shoes perfect for daily workouts and long-distance running. Features breathable mesh upper and responsive cushioning.",
     "rating": 4.5,
-    "brand": "SportTech"
+    "brand": "Nike"
   },
   {
     "id": 2,
@@ -17,7 +17,7 @@
     "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop",
     "description": "Premium wireless headphones with noise cancellation and 30-hour battery life. Crystal clear audio quality.",
     "rating": 4.8,
-    "brand": "AudioMax"
+    "brand": "Apple"
   },
   {
     "id": 3,
@@ -27,7 +27,7 @@
     "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop",
     "description": "Durable and spacious backpack perfect for travel, work, or outdoor adventures. Multiple compartments and water-resistant.",
     "rating": 4.3,
-    "brand": "TravelGear"
+    "brand": "Adidas"
   },
   {
     "id": 4,
@@ -37,7 +37,7 @@
     "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop",
     "description": "Advanced smartwatch with health monitoring, GPS, and 7-day battery life. Compatible with iOS and Android.",
     "rating": 4.6,
-    "brand": "TechWear"
+    "brand": "Apple"
   },
   {
     "id": 5,
@@ -47,7 +47,7 @@
     "image": "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&h=400&fit=crop",
     "description": "Stylish sunglasses with UV protection and polarized lenses. Perfect for outdoor activities and fashion.",
     "rating": 4.2,
-    "brand": "StyleVision"
+    "brand": "Nike"
   },
   {
     "id": 6,
@@ -57,7 +57,7 @@
     "image": "https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?w=400&h=400&fit=crop",
     "description": "Professional digital camera with 24MP sensor and 4K video recording capabilities. Perfect for photography enthusiasts.",
     "rating": 4.7,
-    "brand": "PhotoPro"
+    "brand": "Samsung"
   },
   {
     "id": 7,
@@ -67,7 +67,7 @@
     "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop",
     "description": "Comfortable cotton t-shirt available in multiple colors. Perfect for casual wear and everyday comfort.",
     "rating": 4.1,
-    "brand": "ComfortWear"
+    "brand": "Adidas"
   },
   {
     "id": 8,
@@ -77,7 +77,7 @@
     "image": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&h=400&fit=crop",
     "description": "Latest smartphone with advanced camera system, fast processor, and all-day battery life. 5G enabled.",
     "rating": 4.9,
-    "brand": "TechMobile"
+    "brand": "Samsung"
   },
   {
     "id": 9,
@@ -87,36 +87,6 @@
     "image": "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=400&h=400&fit=crop",
     "description": "Programmable coffee maker with built-in grinder and thermal carafe. Brew perfect coffee every morning.",
     "rating": 4.4,
-    "brand": "BrewMaster"
-  },
-  {
-    "id": 10,
-    "title": "Desk Lamp",
-    "price": 79,
-    "category": "Home",
-    "image": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=400&h=400&fit=crop",
-    "description": "LED desk lamp with adjustable brightness and color temperature. Perfect for reading and working.",
-    "rating": 4.0,
-    "brand": "LightTech"
-  },
-  {
-    "id": 11,
-    "title": "Gaming Mouse",
-    "price": 89,
-    "category": "Electronics",
-    "image": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400&h=400&fit=crop",
-    "description": "High-precision gaming mouse with customizable RGB lighting and programmable buttons.",
-    "rating": 4.5,
-    "brand": "GameTech"
-  },
-  {
-    "id": 12,
-    "title": "Yoga Mat",
-    "price": 39,
-    "category": "Home",
-    "image": "https://images.unsplash.com/photo-1592432678016-e910b452f9a2?w=400&h=400&fit=crop",
-    "description": "Premium yoga mat with excellent grip and cushioning. Perfect for yoga, pilates, and home workouts.",
-    "rating": 4.3,
-    "brand": "FitLife"
+    "brand": "IKEA"
   }
 ]
