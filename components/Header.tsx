@@ -1,11 +1,30 @@
 "use client";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ShoppingCart, Search } from "lucide-react";
 import useCartStore from "@/store/cartStore";
 
 function Header() {
-  const getCartItemsCount = useCartStore((state) => state.getCartItemsCount);
-  const cartItemsCount = getCartItemsCount();
+  const { getCartItemsCount, isHydrated } = useCartStore();
+  const [cartItemsCount, setCartItemsCount] = useState(0);
+
+  // Update cart count when store changes
+  useEffect(() => {
+    if (isHydrated) {
+      setCartItemsCount(getCartItemsCount());
+    }
+  }, [getCartItemsCount, isHydrated]);
+
+  // Subscribe to store changes
+  useEffect(() => {
+    const unsubscribe = useCartStore.subscribe((state) => {
+      if (state.isHydrated) {
+        setCartItemsCount(state.getCartItemsCount());
+      }
+    });
+
+    return unsubscribe;
+  }, []);
 
   return (
     <div className="flex items-center justify-around bg-primary p-4">

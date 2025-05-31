@@ -49,6 +49,11 @@ function CartPage() {
     return stars;
   };
 
+  // Handle quantity decrease with automatic removal at 0
+  const handleQuantityDecrease = (itemId: number, currentQuantity: number) => {
+    updateQuantity(itemId, currentQuantity - 1);
+  };
+
   if (items.length === 0) {
     return (
       <div className="min-h-screen bg-gray-50 py-8">
@@ -82,7 +87,7 @@ function CartPage() {
   }
 
   return (
-    <div className=" bg-gray-50 py-8">
+    <div className="bg-gray-50 py-8">
       <div className="max-w-6xl mx-auto px-4">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
@@ -157,10 +162,14 @@ function CartPage() {
                     <div className="flex items-center border border-gray-300 rounded-lg">
                       <button
                         onClick={() =>
-                          updateQuantity(item.id, item.quantity - 1)
+                          handleQuantityDecrease(item.id, item.quantity)
                         }
                         className="p-2 hover:bg-gray-100 transition-colors rounded-l-lg"
-                        disabled={item.quantity <= 1}
+                        title={
+                          item.quantity === 1
+                            ? "Remove item"
+                            : "Decrease quantity"
+                        }
                       >
                         <Minus size={16} />
                       </button>
