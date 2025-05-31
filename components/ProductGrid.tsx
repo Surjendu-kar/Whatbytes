@@ -124,13 +124,6 @@ function ProductGrid({ filters, setFilters }: ProductGridProps) {
     e.preventDefault();
     e.stopPropagation();
 
-    if (newQuantity === 0) {
-      toast.error(`${productTitle} removed from cart`, {
-        duration: 2000,
-        position: "top-center",
-      });
-    }
-
     updateQuantity(productId, newQuantity);
   };
 

@@ -1,62 +1,82 @@
 "use client";
-import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
+import { Toaster } from "react-hot-toast";
 import ProductGrid from "@/components/ProductGrid";
 import Sidebar from "@/components/Sidebar";
-import { Toaster } from "react-hot-toast";
+import HomeContent from "@/components/HomeContent";
 
-interface Filters {
-  category: string;
-  minPrice: number;
-  maxPrice: number;
-  brands: string[];
-  search: string;
+// Loading component for Suspense fallback
+function HomeLoading() {
+  return (
+    <div className="flex bg-gray-50 gap-10">
+      {/* Sidebar Skeleton */}
+      <div className="w-64 flex flex-col gap-6">
+        <div className="flex flex-col bg-primary p-4 text-white rounded-xl gap-4 animate-pulse">
+          <div className="h-6 bg-blue-300 rounded w-20"></div>
+          <div className="space-y-2">
+            <div className="h-4 bg-blue-300 rounded w-16"></div>
+            <div className="space-y-2">
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className="flex items-center space-x-3">
+                  <div className="w-4 h-4 bg-blue-300 rounded"></div>
+                  <div className="h-3 bg-blue-300 rounded w-20"></div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="bg-white flex flex-col rounded-xl gap-4 p-4 shadow-md animate-pulse">
+          <div className="h-5 bg-gray-300 rounded w-16"></div>
+          <div className="space-y-3">
+            {[1, 2, 3, 4, 5].map((i) => (
+              <div key={i} className="flex items-center space-x-3">
+                <div className="w-4 h-4 bg-gray-300 rounded"></div>
+                <div className="h-3 bg-gray-300 rounded w-16"></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Product Grid Skeleton */}
+      <div className="flex-1">
+        <div className="animate-pulse">
+          <div className="h-8 bg-gray-300 rounded w-48 mb-4"></div>
+          <div className="h-4 bg-gray-300 rounded w-64 mb-6"></div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div key={i} className="rounded-lg shadow-md overflow-hidden">
+                <div className="h-48 bg-gray-300"></div>
+                <div className="p-4 space-y-2">
+                  <div className="h-3 bg-gray-300 rounded w-16"></div>
+                  <div className="h-5 bg-gray-300 rounded w-32"></div>
+                  <div className="h-6 bg-gray-300 rounded w-20"></div>
+                  <div className="flex space-x-1">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <div
+                        key={star}
+                        className="w-4 h-4 bg-gray-300 rounded"
+                      ></div>
+                    ))}
+                  </div>
+                  <div className="h-8 bg-gray-300 rounded"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function Page() {
-  const searchParams = useSearchParams();
-  const [filters, setFilters] = useState<Filters>({
-    category: "All",
-    minPrice: 0,
-    maxPrice: 1000,
-    brands: [],
-    search: "",
-  });
-
-  // Initialize filters from URL params
-  useEffect(() => {
-    const category = searchParams.get("category");
-    const price = searchParams.get("price");
-    const brands = searchParams.get("brands");
-    const search = searchParams.get("search");
-
-    const newFilters: Filters = {
-      category: category
-        ? category.charAt(0).toUpperCase() + category.slice(1)
-        : "All",
-      minPrice: 0,
-      maxPrice: 1000,
-      brands: brands ? brands.split(",") : [],
-      search: search || "",
-    };
-
-    // Parse price range
-    if (price) {
-      const [minStr, maxStr] = price.split("-");
-      newFilters.minPrice = parseInt(minStr) || 0;
-      newFilters.maxPrice = parseInt(maxStr) || 1000;
-    }
-
-    setFilters(newFilters);
-  }, [searchParams]);
-
   return (
     <>
       <Toaster />
-      <div className="flex bg-gray-50 gap-10">
-        <Sidebar filters={filters} setFilters={setFilters} />
-        <ProductGrid filters={filters} setFilters={setFilters} />
-      </div>
+      <Suspense fallback={<HomeLoading />}>
+        <HomeContent />
+      </Suspense>
     </>
   );
 }
