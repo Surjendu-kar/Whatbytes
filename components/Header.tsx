@@ -65,20 +65,25 @@ function HeaderContent({ onMenuClick }: HeaderContentProps) {
 
   return (
     <div className="bg-primary sticky top-0 z-40">
-      <div className="container mx-auto py-4 px-4 flex items-center justify-between">
+      <div className="container mx-auto p-3.5 md:p-4 flex items-center justify-between">
         {/* Left Section */}
-        <div className="flex items-center gap-4">
-          {/* Menu Button - Only on small screens */}
-          <button
-            onClick={onMenuClick}
-            className="md:hidden text-white hover:text-blue-100 transition-colors"
-          >
-            <Menu size={24} />
-          </button>
+        <div className="flex items-center gap-2 md:gap-4">
+          {/* Menu Button - Only on small screens and home page */}
+          {pathname === "/" && (
+            <button
+              onClick={onMenuClick}
+              className="md:hidden text-white hover:text-blue-100 transition-colors p-2"
+            >
+              <Menu size={24} />
+            </button>
+          )}
 
           {/* Logo */}
-          <Link href="/">
-            <h1 className="text-2xl font-bold text-white">Logo</h1>
+          <Link
+            href="/"
+            className={`flex items-center ${pathname !== "/" ? "pl-11 md:pl-0" : ""}`}
+          >
+            <h1 className="text-xl md:text-2xl font-bold text-white">Logo</h1>
           </Link>
         </div>
 

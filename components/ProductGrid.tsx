@@ -202,7 +202,7 @@ function ProductGrid({ filters, setFilters }: ProductGridProps) {
 
             return (
               <Link key={product.id} href={`/product/${product.id}`}>
-                <div className="rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer overflow-hidden">
+                <div className="rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer overflow-hidden bg-gray-50">
                   {/* Product Image */}
                   <div className="relative pt-[100%] bg-white">
                     <Image

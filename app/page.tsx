@@ -53,7 +53,7 @@ function HomeContent() {
   return (
     <>
       <Toaster />
-      <div className="flex bg-gray-50 gap-10">
+      <div className="flex gap-10">
         <Sidebar filters={filters} setFilters={setFilters} />
         <ProductGrid filters={filters} setFilters={setFilters} />
       </div>

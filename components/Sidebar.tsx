@@ -21,6 +21,7 @@ function Sidebar({ filters, setFilters }: SidebarProps) {
   const [priceRange, setPriceRange] = useState(filters.maxPrice);
   const [priceInput, setPriceInput] = useState("");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
 
   const categories = ["All", "Electronics", "Clothing", "Home"];
   const brands = ["Apple", "Samsung", "Nike", "Adidas", "IKEA"];
@@ -68,6 +69,29 @@ function Sidebar({ filters, setFilters }: SidebarProps) {
       minPrice: 0,
       maxPrice: value,
     });
+  };
+
+  const handleMouseDown = () => {
+    setIsDragging(true);
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLInputElement>) => {
+    if (isDragging) {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const percentage = Math.min(Math.max(x / rect.width, 0), 1);
+      const value = Math.round(percentage * 1000);
+      setPriceRange(value);
+      setFilters({
+        ...filters,
+        minPrice: 0,
+        maxPrice: value,
+      });
+    }
   };
 
   const handleBrandChange = (brand: string, checked: boolean) => {
@@ -154,6 +178,10 @@ function Sidebar({ filters, setFilters }: SidebarProps) {
               max="1000"
               value={priceRange}
               onChange={handlePriceRangeChange}
+              onMouseDown={handleMouseDown}
+              onMouseUp={handleMouseUp}
+              onMouseLeave={handleMouseUp}
+              onMouseMove={handleMouseMove}
               className="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer slider"
             />
             <div className="flex justify-between text-sm text-blue-100 mt-2">
@@ -235,12 +263,12 @@ function Sidebar({ filters, setFilters }: SidebarProps) {
             isDrawerOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >
-          <div className="p-4 h-full overflow-y-auto">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-bold text-gray-800">Filters</h2>
+          <div className="p-2 md:p-4 h-full overflow-y-auto space-y-4">
+            <div className="flex justify-end items-center mb-4">
+              {/* <h2 className="text-xl font-bold text-gray-800">Filters</h2> */}
               <button
                 onClick={() => setIsDrawerOpen(false)}
-                className="p-2 hover:bg-gray-100 rounded-lg"
+                className="pt-2 hover:bg-gray-100 rounded-lg"
               >
                 <X size={24} />
               </button>
